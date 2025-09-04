@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lieblingspizza hinzufügen</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <!-- Eigene Styles -->
+    <link rel="stylesheet" href="addPizza.css">
+</head>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">🍕 Lieblingspizza</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Über uns</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Pizza einreichen</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Einführungstext -->
+    <header class="container my-5 text-center">
+        <h1 class="display-5 fw-bold text-danger">Füge deine Lieblingspizza hinzu 🍕</h1>
+        <p class="lead text-muted">Beschreibe deine perfekte Pizza, lade ein Foto hoch und teile sie mit der Welt.</p>
+    </header>
+
+    <!-- ✅ Vorteile-Sektion -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <h3>🍕 Vielfalt zeigen</h3>
+                    <p>Unsere Sammlung zeigt die verrücktesten und leckersten Pizzakreationen aus aller Welt.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h3>📸 Bild hochladen</h3>
+                    <p>Lade ein schönes Foto deiner Pizza hoch und inspiriere andere.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h3>🗳️ Abstimmungen</h3>
+                    <p>Andere Nutzer können für deine Pizza abstimmen – vielleicht bist du bald Platz 1!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formular -->
+    <main class="container mb-5">
+        <div class="card shadow-sm rounded">
+            <div class="card-body p-4">
+                <form action="/savePizza" method="get">
+                    <div class="mb-3">
+                        <label for="pizzaName" class="form-label">Pizza-Name</label>
+                        <input type="text" class="form-control" id="pizzaName" name="name"
+                            placeholder="z.B. Pizza Margherita">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pizzaDescription" class="form-label">Beschreibung</label>
+                        <textarea class="form-control" id="pizzaDescription" rows="4" name="description"
+                            placeholder="Was macht deine Pizza besonders?"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pizzaImage" class="form-label">Bild hochladen</label>
+                        <input class="form-control" type="file" id="pizzaImage" name="picture">
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-danger">Abschicken</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-danger text-white text-center py-3">
+        &copy; 2025 Lieblingspizza · Alle Rechte vorbehalten
+    </footer>
+
+</body>
+
+</html>
