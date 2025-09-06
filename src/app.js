@@ -32,24 +32,31 @@ app.get('/', (req, res) => {
   pizzaData = JSON.parse(pizzaData);
 
   data = pizzaData;
-  let pizzaPages = data.slice(0, 2);
+  let pizzaPages = data.slice(0, 3);
+  let pagInfo = 2;
   let maxPages = Math.ceil(data.length / limit);
-  res.render('index', { pizzaPages: pizzaPages, maxPages: maxPages  });
+  res.render('index', { pizzaPages: pizzaPages, maxPages: maxPages, pagInfo: pagInfo  });
 });
 
 app.get('/index/:id', (req, res) => {
-    let page = req.params.id;
+    let page = parseInt(req.params.id);
     let data = [];
     let pizzaData = fs.readFileSync(filePath) || null;
 
     pizzaData = JSON.parse(pizzaData);
     data = pizzaData;
-
-    let maxPages = data.length / limit;
+    let pagInfo = null;
+    if(page === Math.ceil(data.length / limit)) {
+      pagInfo = 1;
+    } else if (page === 1) {
+      pagInfo = 2;
+    }
+console.log(pagInfo)
+    let maxPages = Math.ceil(data.length / limit);
     let startIndex = (page - 1) * limit;
     let endIndex = page * limit;   
     let pizzaPages = data.slice(startIndex, endIndex);
-  res.render('index', {pizzaPages: pizzaPages, page: page, maxPages: maxPages });
+  res.render('index', {pizzaPages: pizzaPages, page: page, maxPages: maxPages, pagInfo: pagInfo });
 });
 
 app.get('/addPizza', (req, res)=> {
@@ -60,18 +67,28 @@ app.post('/savePizza', upload.single('image'), (req, res) => {
    const body = req.body;
    const file = req.file;
    console.log(file);
-   const pizzaData = {
+  //  if(!file) {
+  //   return res.json('Test');
+  //  };
+    const pizzaData = {
     name: body.name,
     description: body.description,
-    filePath: file.filename
+    filePath: file ? file.filename : null
   }
 
-   let fileData = fs.readFileSync(path.join(__dirname, '../data.json'), { encoding: 'utf8'}) || [];
-   fileData = JSON.parse(fileData);
 
-   fileData.push(pizzaData);
+  // try {
 
-   fs.writeFileSync(path.join(__dirname, '../data.json'), JSON.stringify(fileData))
+    let fileData = fs.readFileSync(path.join(__dirname, '../data.json'), { encoding: 'utf8'}) || [];
+    fileData = JSON.parse(fileData);
+    
+    fileData.push(pizzaData);
+    
+    fs.writeFileSync(path.join(__dirname, '../data.json'), JSON.stringify(fileData))
+  // } catch (error) {
+  //   console.error(error);
+  // };
+  
 
 
    res.redirect('/addPizza');

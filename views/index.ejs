@@ -141,13 +141,15 @@
     <div class=" container my-5 text-center">
 <nav aria-label="Page navigation example ">
   <ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="#">Vorherige Seite</a></li>
-
+     <% if(pagInfo != 2) { %>
+    <li class="page-item"><a class="page-link bg-danger text-white" href="#">Vorherige Seite</a></li>
+<% } %>
     <% for (let i = 0; i < maxPages; i++) { %>
-    <li class="page-item"><a class="page-link" href="/index/<%=i + 1  %>"><%=i + 1  %></a></li>
+    <li class="page-item" ><a class="page-link bg-danger text-white" href="/index/<%=i + 1  %>"><%=i + 1  %></a></li>
     <% } %>
-
-    <li class="page-item"><a class="page-link" href="#">Nächste Seite</a></li>
+    <% if(pagInfo != 1) { %>
+    <li class="page-item"><a class="page-link bg-danger text-white" href="#">Nächste Seite</a></li>
+    <% } %>
   </ul>
 </nav>
 
