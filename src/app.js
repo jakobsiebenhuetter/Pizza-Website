@@ -72,17 +72,14 @@ app.post('/search', (req, res) => {
   data = pizzaData;
 
   let i = 0;
-  while(i < data.length - 1) {
+  while(i < data.length) {
     if(data[i].name.indexOf(val) !== -1 || data[i].description.indexOf(val) !== -1) {
       filteredData.push(data[i]);
     };
     i++;
   };
 
-
-    let pizzaPages = filteredData.slice(startIndex, endIndex);
-
-
+  let pizzaPages = filteredData.slice(startIndex, endIndex);
   res.render(`index`, { pizzaPages: pizzaPages, page: null, maxPages: 0 } )
 });
 
@@ -111,10 +108,6 @@ app.post('/savePizza', upload.single('image'), (req, res) => {
     
     res.redirect('/addPizza');
 });
-
-function search(value) {
-
-}
 
 const port = 3000;
 app.listen(port, () => { console.log(`Webserver listen on Port: ${port}`)});
