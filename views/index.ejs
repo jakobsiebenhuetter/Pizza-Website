@@ -41,10 +41,11 @@
               <a class="nav-link" href="/addPizza">Pizza einreichen</a>
             </li>
           </ul>
-          <form class="d-flex my-3 my-lg-0 ms-auto" role="search">
+          <form class="d-flex my-3 my-lg-0 ms-auto" role="search" method="post" action="/search">
             <input
               class="form-control me-2"
               type="search"
+              name="search"
               placeholder="Pizzasuche"
             />
             <button class="btn btn-outline-light" type="submit">Suche</button>
@@ -60,7 +61,7 @@
 
 
     <!-- Carousel -->
-    <div class="container">
+    <div class="container" data-bs-theme="dark">
       <div id="carouselExample" class="carousel slide mb-5">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -108,10 +109,6 @@
     <!-- Textbereich -->
     <div class="container mb-5 text-center">
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, provident
-        deserunt! Quaerat facilis non, assumenda eius molestias deserunt?
-      </p>
-      <p>
         Mehr Inhalte zu Pizza, Rezeptideen und kreativen Kombinationen findest
         du weiter unten!
       </p>
@@ -122,9 +119,8 @@
      <div class="container my-5 text-center">
     <div class="row g-4">
 
-
     <% pizzaPages.forEach((page, index) => { %>
-       <div class="col-sm-12 col-md-6 col-lg-4">
+       <div class="col-sm-12 col-md-6 col-lg-4 ">
       <div class="card h-100 shadow-sm">
         <img src="/<%=page.filePath %>" class="card-img-top" alt=<%=page.filePath %> >
         <div class="card-body">
@@ -141,20 +137,14 @@
     <div class=" container my-5 text-center">
 <nav aria-label="Page navigation example ">
   <ul class="pagination justify-content-center">
-     <% if(pagInfo != 2) { %>
-    <li class="page-item"><a class="page-link bg-danger text-white" href="#">Vorherige Seite</a></li>
-<% } %>
     <% for (let i = 0; i < maxPages; i++) { %>
-    <li class="page-item" ><a class="page-link bg-danger text-white" href="/index/<%=i + 1  %>"><%=i + 1  %></a></li>
-    <% } %>
-    <% if(pagInfo != 1) { %>
-    <li class="page-item"><a class="page-link bg-danger text-white" href="#">Nächste Seite</a></li>
+    <li class="page-item" ><a class="page-link bg-danger text-white <%= parseInt(page) === i + 1 ? 'active': '' %>" href="/index/<%=i + 1  %>"><%=i + 1  %></a></li>
     <% } %>
   </ul>
 </nav>
-
 </div>
-    <!-- Footer -->
+ 
+<!-- Footer -->
     <footer class="bg-danger text-white text-center py-4 mt-5">
       &copy; 2025 Lieblingspizza · Alle Rechte vorbehalten
     </footer>
