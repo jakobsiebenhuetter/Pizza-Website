@@ -14,7 +14,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Eigene Styles -->
-    <link rel="stylesheet" href="addPizza.css">
+    <link rel="stylesheet" href="/addPizza.css">
 </head>
 
 <body class="bg-light">
@@ -67,7 +67,7 @@
     <main class="container mb-5">
         <div class="card shadow-sm rounded">
             <div class="card-body p-4">
-                <form action="/savePizza" method="get">
+                <form action="/savePizza" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="pizzaName" class="form-label">Pizza-Name</label>
                         <input type="text" class="form-control" id="pizzaName" name="name"
@@ -82,7 +82,7 @@
 
                     <div class="mb-3">
                         <label for="pizzaImage" class="form-label">Bild hochladen</label>
-                        <input class="form-control" type="file" id="pizzaImage" name="picture">
+                        <input class="form-control" type="file" id="pizzaImage" name="image">
                     </div>
 
                     <div class="text-end">
