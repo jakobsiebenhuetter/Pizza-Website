@@ -8,6 +8,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.static(path.join(__dirname, '../images')));
 app.use(express.static(path.join(__dirname, '../views/styles')));
+app.use(express.static(path.join(__dirname, '../OUTPUT')))
+
 app.use(express.urlencoded( { extended: true }))
 
  const storage = multer.diskStorage( {
