@@ -18,6 +18,27 @@
         <script type="module" src="/main.js"></script>
     <link rel="stylesheet" href="/index.css" />
   </head>
+  
+<script>
+    const person1 = {
+        name: 'B',
+        nickName: 'T',
+        job: 'Software-Engineur',
+        description: function(job) {
+            (job);
+        }
+    };
+
+        const person2 = {
+        name: 'Jakob',
+        nickName: 'JSI',
+        description: function() {
+            console.table(this.job);
+        }
+    };
+
+    person2.description.call(person1);
+</script>
 
   <body>
     <!-- Navbar -->
