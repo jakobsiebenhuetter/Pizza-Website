@@ -1,0 +1,12 @@
+#modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: brown;
+}
+
+#modal > p {
+    margin: 0;
+}
