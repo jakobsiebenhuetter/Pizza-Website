@@ -1,12 +1,16 @@
 #modal {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 50%;
+    height: 300px;
     background-color: brown;
 }
 
 #modal > p {
     margin: 0;
+}
+
+#modal.active {
+    display: flex;
 }
