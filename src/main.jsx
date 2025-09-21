@@ -1,17 +1,6 @@
-import React from 'react';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import SearchForm from './SearchForm/SearchForm.jsx';
 
-import App from './App.jsx';
+createRoot(document.querySelector("form")).render(<SearchForm/>);
 
-
-import { createRoot } from 'react-dom/client'
-
-createRoot(document.getElementById('app')).render(<App></App>);
-
-document.querySelector('.search').addEventListener('click', () => {
-    const modal = document.querySelector('#modal');
-    if(modal.classList.contains('active')) {
-        modal.classList.remove('active');
-    } else {
-        modal.classList.add('active');
-    };  
-});
