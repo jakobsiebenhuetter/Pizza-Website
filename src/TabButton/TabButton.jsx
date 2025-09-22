@@ -16,7 +16,7 @@ export default function TabButton (props) {
     return(
         <div className="tab-button" onClick={props.onSelect}>
             <span>{title}</span>
-            <span>{props.title || 'Tab'}</span>
+            {/* <span>{props.title || 'Tab'}</span> */}
         </div>
     )
 }
