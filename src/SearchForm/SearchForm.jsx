@@ -4,32 +4,33 @@ import { createPortal } from "react-dom";
 import Backdrop from "../Backdrop/Backdrop";
 import TabButton from "../TabButton/TabButton";
 
-function Modal({ isOpen, onSelect }) {
+function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     const [inputValue, setInputValue] = useState('');
-    const [response, setResponse] = useState(false);
-
-    let template = '';
-
+    
     function search(e) {
         if(e.key === 'Enter') {
             // let res = fetch() 
             // if(response.length)
-            setResponse(true)
-         
+            // best practice mit einer callback function also setResponse((bo) => !bo)
+            handleSearch(true);
+            setInputValue('');
+            
         }
     }
 
-    function renderList() {
+    let template = '';
 
-        if(response) {
-            template = 
+    function renderList() {
+        
+        if(showSearch) {
+            template =
             <ul>
                 <li>
                     Test
                 </li>
             </ul>
         }
-    };
+    };  
 
     renderList();
         
@@ -37,7 +38,7 @@ function Modal({ isOpen, onSelect }) {
     <>
       {isOpen && <div id="modal">
         <h1>Gib ein Schlagwort ein</h1>
-        <input type="text" placeholder="Pizzasuche" value={inputValue} onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)} }/>
+        <input type="text" placeholder="Pizzasuche" onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)} }/>
         <TabButton title="Suchen" onSelect={ () => { alert(inputValue) }} ></TabButton>
         <button onClick={onSelect}>Schließen</button>
         
@@ -50,18 +51,32 @@ function Modal({ isOpen, onSelect }) {
 }
 
 export default function SearchForm() {
-  const [isOpen, setIsOpen] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [response, setResponse] = useState(false);
+
   let isDisabled = isOpen;
 
   function handleModal() {
     setIsOpen(prev => !prev);
+    if(!isOpen) {
+      handleSearchResults(false);
+    }
+  }
+
+  function handleSearchResults(open) {
+  
+    if(open) {
+      setResponse(true);
+    } else {
+      setResponse(false);
+    }
   }
 
   return (
     <>
       <input onClick={() => { handleModal() }} type="text" className="form-control me-2 search" disabled={isDisabled} name="search" placeholder="Pizzasuche" autoComplete="off"/>
       <button onClick={() => {handleModal()}} className="btn btn-outline-light" type="button"> Suche</button>
-      <Modal isOpen={isOpen} onSelect={() => handleModal()}></Modal>
+      <Modal isOpen={isOpen} onSelect={() => handleModal()} handleSearch ={handleSearchResults} showSearch = {response}></Modal>
     </>
   );
 }
