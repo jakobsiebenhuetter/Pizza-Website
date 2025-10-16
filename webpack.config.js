@@ -7,6 +7,9 @@ module.exports = {
         filename: 'main.js',
         path: path.resolve(__dirname, './OUTPUT')
     },
+
+    devtool: 'source-map',
+
     module: {
         rules: [
             {
@@ -17,7 +20,7 @@ module.exports = {
 
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader", "postcss-loader"],
+                use: ["style-loader", "css-loader"],
             },
         ]
     },

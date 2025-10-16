@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import "./Modal.css";
 import { createPortal } from "react-dom";
 import Backdrop from "../Backdrop/Backdrop";
-import TabButton from "../TabButton/TabButton";
-import Filter from "../Filter/Filter";
 
 function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     const [inputValue, setInputValue] = useState('');
@@ -19,6 +18,12 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     }
 
     let template = '';
+    // template =
+    //         <ul>
+    //             <li>
+    //                 Test
+    //             </li>
+    //         </ul>
 
     function renderList() {
         
@@ -38,9 +43,7 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     <>
       {isOpen && <div id="modal" >
         <h1>Gib ein Schlagwort ein</h1>
-        <input type="text" placeholder="Pizzasuche" onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)} } />
-        <TabButton title="Suchen" onSelect={ () => { alert(inputValue) }} ></TabButton>
-         <Filter></Filter>
+        <input className="search-field" type="text" placeholder="Pizzasuche" onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)}} value={inputValue}/>
         <button onClick={onSelect}>Schließen</button>
         
         {template}

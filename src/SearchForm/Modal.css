@@ -13,8 +13,20 @@
     height: 300px;
     background-color: brown;
     transform: translateX(-50%);
+    border-radius: 6px;
+
 }
 
 #modal > p {
     margin: 0;
+}
+
+#modal > .search-field {
+    width: 90%;
+    border: 2px solid transparent;
+    border-radius: 6px;
+}
+
+#modal > .search-field:focus-visible {
+    outline: none;
 }
