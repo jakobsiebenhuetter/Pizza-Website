@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Modal.css";
 import { createPortal } from "react-dom";
 import Backdrop from "../Backdrop/Backdrop";
 
-function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
-    const [inputValue, setInputValue] = useState('');
-
+function Modal({ isOpen, onSelect, isSearch, handleSearch }) {
+    const inputValue = useRef();
 
     function search(e) {
         if(e.key === 'Enter') {
@@ -13,7 +12,8 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
             // if(response.length)
             // best practice mit einer callback function also setResponse((bo) => !bo)
             handleSearch(true);
-            setInputValue('');
+            console.log(inputValue.current.value)
+            
             
         }
     }
@@ -29,7 +29,7 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     function renderList() {
 
 
-        if(showSearch) {
+        if(isSearch) {
             template =
             <ul>
                 <li>
@@ -45,12 +45,12 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     <>
       {isOpen && <div id="modal" >
         <h1>Gib ein Schlagwort ein</h1>
-        <input className="search-field" type="text" placeholder="Pizzasuche" onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)}} value={inputValue}/>
-        <button onClick={() => {onSelect(); setInputValue('')}}>Schließen</button>
+        <input className="search-field" type="text" placeholder="Pizzasuche" onKeyDown={(e) => {search(e)}} ref={inputValue}/>
+        <button onClick={() => {onSelect()}}>Schließen</button>
         
         {template}
       </div>}
-      {isOpen && <Backdrop onClose={{closeBackdrop: onSelect, setInputToNull: setInputValue}}></Backdrop>}
+      {isOpen && <Backdrop onClose={onSelect}></Backdrop>}
     </>,
     document.body
   );
@@ -58,31 +58,19 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
 
 export default function SearchForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [response, setResponse] = useState(false);
-
-  let isDisabled = isOpen;
+  const [isSearch, setSearch] = useState(false);
 
   function handleModal() {
     setIsOpen(prev => !prev);
-    if(!isOpen) {
-      handleSearchResults(false);
-    }
-  }
-
-  function handleSearchResults(open) {
-  
-    if(open) {
-      setResponse(true);
-    } else {
-      setResponse(false);
-    }
+    setSearch(false);
+    
   }
 
   return (
     <>
       <input onClick={() => { handleModal() }} type="text" className="form-control me-2 search" disabled={false} name="search" placeholder="Pizzasuche" autoComplete="off"/>
       <button onClick={() => {handleModal()}} className="btn btn-outline-light" type="button"> Suche</button>
-      <Modal isOpen={isOpen} onSelect={() => handleModal()} handleSearch ={handleSearchResults} showSearch = {response}></Modal>
+      <Modal isOpen={isOpen} onSelect={() => handleModal()} isSearch = {isSearch} handleSearch ={setSearch}></Modal>
      
     </>
   );

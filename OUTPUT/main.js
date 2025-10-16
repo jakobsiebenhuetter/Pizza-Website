@@ -27724,10 +27724,7 @@ function Backdrop(_ref) {
   var onClose = _ref.onClose;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "backdrop",
-    onClick: function onClick() {
-      onClose.closeBackdrop();
-      onClose.setInputToNull('');
-    }
+    onClick: onClose
   }));
 }
 
@@ -27813,19 +27810,16 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function Modal(_ref) {
   var isOpen = _ref.isOpen,
     onSelect = _ref.onSelect,
-    handleSearch = _ref.handleSearch,
-    showSearch = _ref.showSearch;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState2 = _slicedToArray(_useState, 2),
-    inputValue = _useState2[0],
-    setInputValue = _useState2[1];
+    isSearch = _ref.isSearch,
+    handleSearch = _ref.handleSearch;
+  var inputValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   function search(e) {
     if (e.key === 'Enter') {
       // let res = fetch() 
       // if(response.length)
       // best practice mit einer callback function also setResponse((bo) => !bo)
       handleSearch(true);
-      setInputValue('');
+      console.log(inputValue.current.value);
     }
   }
   var template = '';
@@ -27837,9 +27831,11 @@ function Modal(_ref) {
   //         </ul>
 
   function renderList() {
-    if (showSearch) {
+    if (isSearch) {
       template = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", null, "Test"));
     }
+
+    // handleSearch(prev => !prev);
   }
   ;
   renderList();
@@ -27849,49 +27845,32 @@ function Modal(_ref) {
     className: "search-field",
     type: "text",
     placeholder: "Pizzasuche",
-    onChange: function onChange(e) {
-      setInputValue(e.target.value);
-    },
     onKeyDown: function onKeyDown(e) {
       search(e);
     },
-    value: inputValue
+    ref: inputValue
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     onClick: function onClick() {
       onSelect();
-      setInputValue('');
     }
   }, "Schlie\xDFen"), template), isOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Backdrop_Backdrop__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onClose: {
-      closeBackdrop: onSelect,
-      setInputToNull: setInputValue
-    }
+    onClose: onSelect
   })), document.body);
 }
 function SearchForm() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    isOpen = _useState2[0],
+    setIsOpen = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    isOpen = _useState4[0],
-    setIsOpen = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState6 = _slicedToArray(_useState5, 2),
-    response = _useState6[0],
-    setResponse = _useState6[1];
-  var isDisabled = isOpen;
+    isSearch = _useState4[0],
+    setSearch = _useState4[1];
   function handleModal() {
     setIsOpen(function (prev) {
       return !prev;
     });
-    if (!isOpen) {
-      handleSearchResults(false);
-    }
-  }
-  function handleSearchResults(open) {
-    if (open) {
-      setResponse(true);
-    } else {
-      setResponse(false);
-    }
+    setSearch(false);
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     onClick: function onClick() {
@@ -27914,8 +27893,8 @@ function SearchForm() {
     onSelect: function onSelect() {
       return handleModal();
     },
-    handleSearch: handleSearchResults,
-    showSearch: response
+    isSearch: isSearch,
+    handleSearch: setSearch
   }));
 }
 

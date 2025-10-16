@@ -5,7 +5,7 @@ export default function Backdrop( {onClose} ) {
 
     return (
         <>
-        <div id="backdrop" onClick={() => {onClose.closeBackdrop(); onClose.setInputToNull('')}}></div>
+        <div id="backdrop" onClick={onClose}></div>
         </>
     )
 }
