@@ -27724,7 +27724,10 @@ function Backdrop(_ref) {
   var onClose = _ref.onClose;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     id: "backdrop",
-    onClick: onClose
+    onClick: function onClick() {
+      onClose.closeBackdrop();
+      onClose.setInputToNull('');
+    }
   }));
 }
 
@@ -27854,9 +27857,15 @@ function Modal(_ref) {
     },
     value: inputValue
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
-    onClick: onSelect
+    onClick: function onClick() {
+      onSelect();
+      setInputValue('');
+    }
   }, "Schlie\xDFen"), template), isOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Backdrop_Backdrop__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    onClose: onSelect
+    onClose: {
+      closeBackdrop: onSelect,
+      setInputToNull: setInputValue
+    }
   })), document.body);
 }
 function SearchForm() {
