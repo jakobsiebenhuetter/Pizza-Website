@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Modal.css";
 import { createPortal } from "react-dom";
 import Backdrop from "../Backdrop/Backdrop";
 import TabButton from "../TabButton/TabButton";
+import Filter from "../Filter/Filter";
 
 function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
     const [inputValue, setInputValue] = useState('');
@@ -36,10 +36,11 @@ function Modal({ isOpen, onSelect, handleSearch, showSearch }) {
         
   return createPortal(
     <>
-      {isOpen && <div id="modal">
+      {isOpen && <div id="modal" >
         <h1>Gib ein Schlagwort ein</h1>
-        <input type="text" placeholder="Pizzasuche" onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)} }/>
+        <input type="text" placeholder="Pizzasuche" onChange={ (e) => {setInputValue(e.target.value)}} onKeyDown={(e) => {search(e)} } />
         <TabButton title="Suchen" onSelect={ () => { alert(inputValue) }} ></TabButton>
+         <Filter></Filter>
         <button onClick={onSelect}>Schließen</button>
         
         {template}
@@ -74,9 +75,10 @@ export default function SearchForm() {
 
   return (
     <>
-      <input onClick={() => { handleModal() }} type="text" className="form-control me-2 search" disabled={isDisabled} name="search" placeholder="Pizzasuche" autoComplete="off"/>
+      <input onClick={() => { handleModal() }} type="text" className="form-control me-2 search" disabled={false} name="search" placeholder="Pizzasuche" autoComplete="off"/>
       <button onClick={() => {handleModal()}} className="btn btn-outline-light" type="button"> Suche</button>
       <Modal isOpen={isOpen} onSelect={() => handleModal()} handleSearch ={handleSearchResults} showSearch = {response}></Modal>
+     
     </>
   );
 }

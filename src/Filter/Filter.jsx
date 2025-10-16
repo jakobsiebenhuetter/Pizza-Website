@@ -1,9 +1,9 @@
 import React from 'react';
+import "../tailwind.css"
 
 export default function Filter() {
     return(
         <>
-        <p></p>
         <input type="text" placeholder="Pizzasuche"/>
         </>
     )
